@@ -1,51 +1,52 @@
-package com.demo.ecom.controller;
+package com.demo.ecom.service;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import org.aspectj.lang.annotation.Before;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
+import com.demo.ecom.dao.ProductDAO;
+import com.demo.ecom.dao.PurchaseProductDAO;
+import com.demo.ecom.entity.Product;
 import com.demo.ecom.entity.PurchaseProduct;
 import com.demo.ecom.response.Message;
 import com.demo.ecom.response.ResponseObject;
-import com.demo.ecom.service.ProductsPurchaseImpl;
 
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @DataJpaTest
-class PurchaseProductControllerTest {
-
-	@Mock
-	private ProductsPurchaseImpl productsPurchaseImpl;
-	
+class ProductsPurchaseImplTest {
 
 	@InjectMocks
-	private PurchaseProductController purchaseProductController;
+	ProductsPurchaseImpl productsPurchaseImpl;
 
-	@Before(value = "")
-	public void init() {
-		MockitoAnnotations.initMocks(this);
-	}
+	@Mock
+	PurchaseProductDAO purchaseProductDAO;
 
 	PurchaseProduct purchaseProduct = null;
-	
+
 	@Test
-	void testBuyProducts() {
+	void testPurchaseProduct() {
+		
 		purchaseProduct = new PurchaseProduct();
 		purchaseProduct.setPurchaseId(1);
 		purchaseProduct.setUserName("ABC");
 		purchaseProduct.setProductId(1);
 		purchaseProduct.setShopId(1);
 		purchaseProduct.setPhoneNumber("9972207104");
-		
+
 		Message message = new Message();
 		message.setStatusCode("200");
 		message.setMessage("Product order is placed successfully.");
@@ -54,11 +55,10 @@ class PurchaseProductControllerTest {
 		responseObject.setObject(purchaseProduct);
 		responseObject.setMessage(message);
 		System.out.println("responseObject " + responseObject);
-		Mockito.when(productsPurchaseImpl.purchaseProduct(purchaseProduct)).thenReturn(responseObject);
-		
-		ResponseEntity<ResponseObject> response = purchaseProductController.buyProducts(purchaseProduct);
-		assertEquals(HttpStatus.OK,response.getStatusCode());
-		
+
+		Mockito.when(purchaseProductDAO.findById(1)).thenReturn(Optional.of(purchaseProduct));
+		assertNotNull(responseObject);
+
 	}
 
 }

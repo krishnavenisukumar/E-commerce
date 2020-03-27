@@ -19,6 +19,6 @@ public class ProductController {
 	@GetMapping("/product/{productname}")
 	public ResponseEntity<ResponseObject> getProducts(@PathVariable String productname) {
 		ResponseObject responseObject =  productServiceImpl.getProductsDetails(productname);
-		  return new ResponseEntity<ResponseObject>(responseObject, HttpStatus.OK);
+		  return new ResponseEntity<>(responseObject, HttpStatus.OK);
 	}
 }

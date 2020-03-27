@@ -3,7 +3,7 @@ package com.demo.ecom.response;
 public class Message {
 
 	private String statusCode;
-	private String message;
+	private String statusmessage;
 
 	public Message() {
 	}
@@ -17,10 +17,10 @@ public class Message {
 	}
 
 	public String getMessage() {
-		return message;
+		return statusmessage;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMessage(String statusmessage) {
+		this.statusmessage = statusmessage;
 	}
 }

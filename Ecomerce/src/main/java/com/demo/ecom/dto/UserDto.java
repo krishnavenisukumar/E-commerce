@@ -1,13 +1,9 @@
 package com.demo.ecom.dto;
 
-import java.util.Optional;
-
-import com.demo.ecom.entity.User;
-
 public class UserDto {
-	
+
 	private Integer userId;
-	private String userPassword;
+	private String phoneNumber;
 
 	public Integer getUserId() {
 		return userId;
@@ -17,17 +13,16 @@ public class UserDto {
 		this.userId = userId;
 	}
 
-	public String getUserPassword() {
-		return userPassword;
+	public String getphoneNumber() {
+		return phoneNumber;
 	}
 
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+	public void setphoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public UserDto() {
 		super();
 	}
-
 
 }

@@ -2,9 +2,6 @@ package com.demo.ecom.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,55 +14,42 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.demo.ecom.entity.Product;
+import com.demo.ecom.entity.CustomerFeedback;
 import com.demo.ecom.response.Message;
 import com.demo.ecom.response.ResponseObject;
-import com.demo.ecom.service.ProductServiceImpl;
+import com.demo.ecom.service.CustomerFeedbackServiceImpl;
 
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @DataJpaTest
-class ProductControllerTest {
+class CustomerFeedbackControllerTest {
 
 	@Mock
-	private ProductServiceImpl productServiceImpl;
+	private CustomerFeedbackServiceImpl customerFeedbackServiceImpl;
 
 	@InjectMocks
-	private ProductController productController;
+	private CustomerFeedbackController customerFeedbackController;
 
 	@Before(value = "")
 	public void init() {
 		MockitoAnnotations.initMocks(this);
 	}
-
-	List<Product> productList = null;
-	Product product = null;
-
+	
 	@Test
-	void testGetProducts() {
-
-		productList = new ArrayList<>();
-		product = new Product();
-		product.setProductId(1);
-		product.setProductName("dettol");
-		product.setProductDescription("hand wash");
-		product.setProductCost(500.00);
-		product.setProductBrand("dettol");
-		productList.add(product);
-
+	void testSaveFeedback() {
+		CustomerFeedback customerFeedback = new CustomerFeedback();
+		customerFeedback.setDescription("");
+		customerFeedback.setProductId(1);
+		customerFeedback.setShopId(1);
+		customerFeedback.setUserName("ABC");
 		Message message = new Message();
 		message.setStatusCode("200");
-		message.setMessage("Product details are extracted successfully.");
-
+		message.setMessage("Your Feedback is saved successfully.");
 		ResponseObject responseObject = new ResponseObject();
-		responseObject.setObject(productList);
+		responseObject.setObject(customerFeedback);
 		responseObject.setMessage(message);
-		System.out.println("responseObject " + responseObject);
-		String productName = "wash";
-
-		Mockito.when(productServiceImpl.getProductsDetails(productName)).thenReturn(responseObject);
-
-		ResponseEntity<ResponseObject> response = productController.getProducts(productName);
+		Mockito.when(customerFeedbackServiceImpl.saveCustomerFeedback(customerFeedback)).thenReturn(responseObject);
+		ResponseEntity<ResponseObject> response = customerFeedbackController.saveFeedback(customerFeedback);
 		assertEquals(HttpStatus.OK,response.getStatusCode());
-	}
 
+	}
 }

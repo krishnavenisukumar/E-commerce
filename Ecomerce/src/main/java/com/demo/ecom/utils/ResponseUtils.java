@@ -4,7 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.demo.ecom.entity.Product;
+import com.demo.ecom.entity.CustomerFeedback;
+import com.demo.ecom.entity.ProductShop;
 import com.demo.ecom.entity.PurchaseProduct;
 import com.demo.ecom.response.Message;
 import com.demo.ecom.response.ResponseObject;
@@ -19,7 +20,7 @@ public class ResponseUtils {
 		 * @param schedule
 		 * @return
 		 */
-		public ResponseObject createProductResponse(List<Product> product) {
+		public ResponseObject createProductResponse(List<ProductShop> product) {
 			
 			responseObj = new ResponseObject();
 			message = new Message();
@@ -51,5 +52,25 @@ public class ResponseUtils {
 			}
 			return responseObj;
 		}
+		
+		
+		
+		public ResponseObject createFeedBackResponse(CustomerFeedback savedFeedback) {
+			
+			responseObj = new ResponseObject();
+			message = new Message();
+			if (savedFeedback != null) {
+				message.setMessage("Your Feedback is saved successfully.");
+				message.setStatusCode("200");
+				responseObj.setObject(savedFeedback);
+				responseObj.setMessage(message);
+			} else {
+				message.setMessage("Your Feedback is not saved. Please try later.");
+				message.setStatusCode("400");
+				responseObj.setMessage(message);
+			}
+			return responseObj;
+		}
+		
 	}
 

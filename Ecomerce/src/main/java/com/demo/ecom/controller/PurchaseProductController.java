@@ -20,10 +20,6 @@ public class PurchaseProductController {
 	@PostMapping("/purchaseproducts")
 	public ResponseEntity<ResponseObject> buyProducts(@RequestBody PurchaseProduct purchaseProduct) {
 		ResponseObject responseObject = productsPurchaseImpl.purchaseProduct(purchaseProduct);
-		 return new ResponseEntity<ResponseObject>(responseObject, HttpStatus.OK);
+		 return new ResponseEntity<>(responseObject, HttpStatus.OK);
 	}
-	
-	
-	
-
 }

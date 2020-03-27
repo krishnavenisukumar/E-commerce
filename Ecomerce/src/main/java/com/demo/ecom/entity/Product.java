@@ -12,6 +12,7 @@ public class Product {
 	private Double productCost;
 	private String productBrand;
 	private String productDescription;
+	
 	public Integer getProductId() {
 		return productId;
 	}
@@ -47,8 +48,16 @@ public class Product {
 		return "Product [productId=" + productId + ", productName=" + productName + ", productCost=" + productCost
 				+ ", productBrand=" + productBrand + ", productDescription=" + productDescription + "]";
 	}
-	
-	
-	
-	
+	public Product(Integer productId, String productName, Double productCost, String productBrand,
+			String productDescription) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.productCost = productCost;
+		this.productBrand = productBrand;
+		this.productDescription = productDescription;
+	}
+	public Product() {
+		super();
+	}
 }
